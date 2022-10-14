@@ -1,0 +1,12 @@
+epitran==1.24
+fonemas==2.0.15
+gensim==4.2.0
+matplotlib==3.6.1
+nltk==3.7
+numpy==1.23.1
+pandas==1.4.3
+rouge==1.0.1
+scikit_learn==1.1.2
+silabeador==1.1.10
+spacy==3.4.1
+tqdm==4.64.0
