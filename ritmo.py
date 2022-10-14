@@ -1,3 +1,13 @@
+'''
+This is the ritmo module: a rhythmic search engine tool for the Spanish language.
+
+Feel free to make improvements!
+
+By S. Cafferty
+caffsean@umich.edu
+'''
+
+
 import re
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
