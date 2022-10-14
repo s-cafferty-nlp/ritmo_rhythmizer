@@ -45,4 +45,4 @@
 ...
 ```
 
-## Check out this Jupyter notebook for a more thorough explanation of this product.
+## Check out this [Jupyter notebook](https://github.com/s-cafferty-nlp/ritmo_rhythmizer/blob/main/ritmo_demonstration.ipynb) for a more thorough explanation of this product.
