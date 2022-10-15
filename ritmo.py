@@ -81,6 +81,9 @@ class Preprocess():
         pos_list = []
         ent_list = []
         for idx, word in enumerate(text):
+            matches = ['mente','ción','acion','miento','idad'] 
+            if any(x in word for x in matches):
+                word = word.lower()
             word_pos_doc = self.nlp(word)
             for token in word_pos_doc[:1]:           
                 pos_list.append(token.pos_)
@@ -226,7 +229,7 @@ class Preprocess():
     def weigh_syllables(self, word):
         word = word.split()
         word.reverse()
-        word = [(10 - idx) * (' ' + s) if idx < 10 else ' ' + s for idx, s in enumerate(word)]
+        word = [(len(word) - (idx)) * (' ' + s) for idx, s in enumerate(word)]
         word.reverse()
 
         return ('').join(word).strip()
@@ -250,7 +253,7 @@ class Rhythmizer(Preprocess):
         self.vectors = {}
         self.vocab_matrix = []
         self.model = []
-        self.function_dictionary = { 'syllables_sampa' : self.get_syllables_sampa, 'syllables_ipa': self.get_syllables_ipa, 'sampa_bigram':self.get_sampa_bigram, 'ipa_bigram': self.get_ipa_bigram, 'sampa_trigram':self.get_sampa_trigram, 'ipa_trigram': self.get_ipa_trigram}
+        self.function_dictionary = { 'sampa_char': self.get_sampa_char, 'ipa_char': self.get_ipa_char, 'syllables_sampa' : self.get_syllables_sampa, 'syllables_ipa': self.get_syllables_ipa, 'sampa_bigram':self.get_sampa_bigram, 'ipa_bigram': self.get_ipa_bigram, 'sampa_trigram':self.get_sampa_trigram, 'ipa_trigram': self.get_ipa_trigram}
 
     def add_word_list(self, word_list):
         self.word_list = word_list
