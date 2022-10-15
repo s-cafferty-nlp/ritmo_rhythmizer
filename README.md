@@ -25,21 +25,19 @@
 
 [OUTPUT]
 0	olorosa	9.000
-1	esplendorosa	7.560
-2	hojosa	7.254
-3	ocaso	5.841
-4	azulosa	5.742
-5	bóveda	5.625
+1	hojosa	7.785
+2	esplendorosa	7.425
+3	azulosa	6.336
+4	ocaso	5.814
 ...
 
 >>> R.query_all_vocab('Italia')
 
 [OUTPUT]
 0	Italia	0.996669
-1	Somalia	0.975529
-2	Liberia	0.971664
-3	Ucrania	0.971496
-4	Malasia	0.970687
+1	Somalia	0.979055
+2	Thelia	0.978236
+3	Ucrania	0.976562
+4	Liberia	0.974564
 ...
 ```
-
