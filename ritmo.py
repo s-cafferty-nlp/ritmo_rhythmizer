@@ -63,6 +63,12 @@ class Preprocess():
         entry = "".join(c for c in word if unicodedata.category(c) not in ["No", "Lo"])
         entry = re.sub('[^A-Za-zÀ-ÿ]+', '', word)
         return entry
+
+    def count_vowels(self, text):
+        v_count = 0
+        for c in text:
+            v_count += 1 if c in set(self.vowels) else 0
+        return False if v_count == 0 else True
     
     def clean_word_list(self, word_list):
         clean_word_list = []
@@ -134,7 +140,6 @@ class Preprocess():
             return [self.get_characters(w) for w in text]
     
     def get_ipa_char(self, text):
-        
         if isinstance(text,str):
             text = self.clean_word(text)
             return self.get_characters(self.epi.transliterate(self.clean_word(text)))
@@ -143,7 +148,6 @@ class Preprocess():
             return [self.get_characters(self.epi.transliterate(self.clean_word(w))) for w in text]
     
     def get_sampa_char(self, text):
-        
         if isinstance(text,str):
             text = self.clean_word(text)
             return self.get_characters(('').join(self.epi.xsampa_list(text)))
@@ -151,8 +155,7 @@ class Preprocess():
             text = self.clean_word_list(text)
             return [self.get_characters(('').join(self.epi.xsampa_list(w))) for w in text]
     
-    def get_ipa(self, text):
-        
+    def get_ipa(self, text): 
         if isinstance(text,str):
             text = self.clean_word(text)
             return self.epi.transliterate(self.clean_word(text))
@@ -160,8 +163,7 @@ class Preprocess():
             text = self.clean_word_list(text)
             return [self.epi.transliterate(self.clean_word(w)) for w in text]
     
-    def get_sampa(self, text):
-        
+    def get_sampa(self, text): 
         if isinstance(text,str):
             text = self.clean_word(text)
             return ('').join(self.epi.xsampa_list(text))
@@ -184,12 +186,6 @@ class Preprocess():
         if isinstance(text,list):
             text = self.clean_word_list(text)
             return [silabeador.tonica(w) for w in text]
-    
-    def count_vowels(self, text):
-        v_count = 0
-        for c in text:
-            v_count += 1 if c in set(self.vowels) else 0
-        return False if v_count == 0 else True
     
     def get_syllables_ipa(self,text):
         if isinstance(text,str):
@@ -417,7 +413,7 @@ class Rhythmizer(Preprocess):
         }).sort_values(distance_col).reset_index(drop=True)
         return nearest_neighbors
 
-    def query_all_vocab(self, entry, weight=True, pos_weight=True):
+    def query_all_vocab(self, entry, weight=True):
         query_vector = self.get_query_vector(entry)
         if weight:
             model = self.train_lsh(self.vocab_matrix, n_vectors=16, seed=143)
@@ -432,7 +428,7 @@ class Rhythmizer(Preprocess):
         results['text'] = np.array(self.clean_word_list_)[list(results['id'])]
         results['weight'] = np.array(pos_multiplier)
         results['weighted_score'] = results['weight'] * results['score']
-        if weight & pos_weight:
+        if weight:
             results['score'] = results['weighted_score']
         results = results[['text','score']].copy()
         return results
